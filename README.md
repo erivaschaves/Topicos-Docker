@@ -1,127 +1,115 @@
-# Descrição
+Como funciona
 
 Docker utilizando o compose, arquivo de configuração com variáveis de ambiente, criando um container nginx 1.13.3 e um container php 7.1.9-fpm ligados através de um link e criando um container mysql 5.7.19.
 
+Configurar o Container Ngnix
 Laravel versão 5.5.22
 
-# Configuração Container Nginx
 
-1. Exposição de portas
+    Exposição de portas
 
-	80 e 443
+    80 e 443
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+    Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
-	Aplicação: htdocs -> /var/www/html
-	
-	Logs: nginx/logs -> /var/log/nginx
-	
-	Virtual Host: nginx/sites -> /etc/nginx/conf.d
-	
-3. Virtual Host
+    Logs: nginx/logs -> /var/log/nginx
 
-	Criação do vhost modelo http://api.dev (vhost modificável)
+    Virtual Host: nginx/sites -> /etc/nginx/conf.d
 
-# Configuração Container Php
+    Virtual Host
 
-1. Exposição de portas
+    Criando do vhost modelo http://api.dev 
 
-	9000
+Configurar Container Php
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+    Exposição de portas
 
-	Aplicação: htdocs -> /var/www/html
-	
-3. Bibliotecas
+    9000
 
-	Habilitação de bibliotecas do php através de arquivo de configuração. Ex: MBSTRING, GD, MCRYPT, PDO_MYSQL, etc.
-	
-# Configuração Container Mysql
+    Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
-1. Exposição de portas
+    Bibliotecas
 
-	3306
+    Habilitação de bibliotecas do php através de arquivo de configuração. Ex: MBSTRING, GD, MCRYPT, PDO_MYSQL, etc.
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+Configuração Container Mysql
 
-	Aplicação: mysql/data -> /var/lib/mysql
+    Exposição de portas
 
-3. Configuração para conexão
+    3306
 
-	- MYSQL_DATABASE      = default
-	
-    - MYSQL_USER          = default
-	
-    - MYSQL_PASSWORD      = secret
-	
-    - MYSQL_ROOT_PASSWORD = root
-	
-    - MYSQL_PORT          = 3306
-	
-# Como utitilizar
+    Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
-1. Clone o repositório usando o comando:
+    Aplicação: mysql/data -> /var/lib/mysql
 
-   git clone https://github.com/erivaschaves/Topicos-Docker.git
+    Configuração para conexão
 
-2. Entre na pasta Docker-Compose-Nginx-Php-Laravel-Mysql e copie o arquivo env-example para .env.
+        MYSQL_DATABASE = default
 
-   cp env-example .env
+        MYSQL_USER = default
 
-3. Rode seu container:
+        MYSQL_PASSWORD = secret
 
-   docker-compose up -d
+        MYSQL_ROOT_PASSWORD = root
 
-4. Adicione os domínios no arquivo de hosts do windows.
+        MYSQL_PORT = 3306
 
-   127.0.0.1 localhost
+Como utitilizar
 
-   127.0.0.1 api.dev
+    Clone o repositório usando o comando:
 
-5. Acessar o shell do container:
+    git clone https://github.com/erivaschaves/Topicos-Docker.git
+
+    Entre na pasta Docker-Compose-Nginx-Php-Laravel-Mysql e copie o arquivo env-example para .env.
+
+    cp env-example .env
+
+    Rode seu container:
+
+    docker-compose up -d
+
+    Adicione os domínios no arquivo de hosts do windows.
+
+    127.0.0.1 localhost
+
+    127.0.0.1 api.dev
+
+    Acessar o shell do container:
+
+    winpty docker exec -it nginx bash
+
+    winpty docker exec -it php-fpm bash
+
+    winpty docker exec -it mysql bash
+
+    Instruções iniciais para rodar o Laravel no localhost:
+
+    Acessar a pasta: cd /var/www/html
+
+    Executar comando para criar pasta vendor do laravel: composer install
+
+    Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
+
+    Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
+
+    Instruções iniciais para rodar o Laravel no api.dev:
+
+    Acessar a pasta api.dev: cd /var/www/html/api.dev
+
+    Executar comando para criar pasta vendor do laravel: composer install
+
+    Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
+
+    Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
+
+    Abra no navegador
+
+    http://localhost
+
+    http://api.dev
+
+    Acessando o banco de dados dentro do container Mysql
+
+    mysql -u root -p
+
     
-	winpty docker exec -it nginx bash
-
-	winpty docker exec -it php-fpm bash
-	
-	winpty docker exec -it mysql bash
-   
-6. Instruções iniciais para rodar o Laravel no localhost:
-
-	Acessar a pasta: cd /var/www/html
-	
-	Executar comando para criar pasta vendor do laravel: composer install
-	
-	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
-	
-	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
-
-7. Instruções iniciais para rodar o Laravel no api.dev:
-
-	Acessar a pasta api.dev: cd /var/www/html/api.dev
-	
-	Executar comando para criar pasta vendor do laravel: composer install
-	
-	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
-	
-	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
-	
-8. Abra no navegador
-
-   http://localhost
-
-   http://api.dev
-
-9. Acessar o banco de dados dentro do container Mysql
-
-	mysql -u root -p
-
-10. Comandos básicos para utilizar o banco de dados
-
-	show databases;
-
-	CREATE DATABASE teste;
-	
-	use teste;
-	
-	show tables;
