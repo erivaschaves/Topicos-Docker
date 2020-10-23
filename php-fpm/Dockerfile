@@ -1,6 +1,6 @@
 FROM php:7.1.9-fpm
  
-MAINTAINER Erivaldo Chaves <erivaldo.chaves@souunit.com.br>
+MAINTAINER erivaldo Chaves <erivaldo.chaves@souunit.com.br>
 
 
 RUN apt-get update \
@@ -21,7 +21,7 @@ RUN apt-get install -y --no-install-recommends libpq-dev libz-dev \
 
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
-    # Install gd and requirements
+    
     apt-get install -y --no-install-recommends libjpeg-dev libpng12-dev libfreetype6-dev \
  && docker-php-ext-configure gd \
     --enable-gd-native-ttf \
@@ -34,7 +34,7 @@ RUN if [ ${INSTALL_GD} = true ]; then \
 
 ARG INSTALL_COMPRESSION=false
 RUN if [ ${INSTALL_COMPRESSION} = true ]; then \
-    # Install zip, bz2 and requirements
+    
     apt-get install -y --no-install-recommends libbz2-dev zlib1g-dev \
  && docker-php-ext-install zip \
     bz2 \
@@ -123,7 +123,7 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 ARG INSTALL_COMPOSER=false
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
-    # Install the composer
+    
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 ;fi
 
