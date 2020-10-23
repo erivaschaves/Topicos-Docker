@@ -2,9 +2,10 @@ Como funciona
 
 Docker utilizando o compose, arquivo de configuração com variáveis de ambiente, criando um container nginx 1.18.0 e um container php 7.4.10-fpm ligados através de um link e criando um container mysql 8.0.21.
 
-Configurar o Container Ngnix
-
 Laravel versão 7.3 ou superior
+
+
+Configurar o Container Ngnix
 
 
     Exposição de portas
