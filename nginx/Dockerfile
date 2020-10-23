@@ -1,5 +1,5 @@
 FROM nginx:1.13.3
 
-MAINTAINER Daniel Nogueira <danielnogueira.dev@gmail.com>
+MAINTAINER Erivaldo Chaves <erivaldo.chaves@souunit.com.br>
 
 EXPOSE 80 443
