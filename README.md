@@ -33,7 +33,7 @@ Configurar Container Php
 
     Habilitação de bibliotecas do php através de arquivo de configuração. Ex: MBSTRING, GD, MCRYPT, PDO_MYSQL, etc.
 
-Configuração Container Mysql
+Configurar Container Mysql
 
     Exposição de portas
 
