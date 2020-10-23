@@ -1,6 +1,6 @@
 FROM php:7.1.9-fpm
  
-MAINTAINER erivaldo Chaves <erivaldo.chaves@souunit.com.br>
+MAINTAINER Erivaldo Chaves <erivaldo.chaves@souunit.com.br>
 
 
 RUN apt-get update \
